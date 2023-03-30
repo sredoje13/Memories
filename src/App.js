@@ -21,7 +21,7 @@ function App() {
   <Route path="/" exact>
   <Firstpage/>
   </Route>
-<Route path="/books" >
+<Route path="/books"exact >
 <Books/>
 </Route>
 <Route path="/movies" exact> 
