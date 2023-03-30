@@ -42,7 +42,7 @@ state.items=action.payload.data
        state.isloading=true
     })
     builder.addCase(postElement.fulfilled,(state,action)=>{
-       
+       console.log(action.payload)
         state.items.push(action.payload)
     })
    

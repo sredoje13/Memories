@@ -8,6 +8,7 @@ import useStyele from './style'
 import { useDispatch } from 'react-redux';
 import { postElement } from '../store/reduxthunk';
 import { AddItems } from '../store/indexstore';
+import {getElement} from '../store/reduxthunk'
 import toast from 'react-hot-toast'
 import '../../App.css'
 import { useSelector } from 'react-redux';
@@ -27,11 +28,12 @@ function Form(props) {
 let mmm;
 let newtitle;
 let newcontent;
-
+let newimage
 if(showchange){
     mmm=true;
     newtitle=chngeitem.title;
     newcontent=chngeitem.content;
+    newimage=chngeitem.image
     
 }
 else{
@@ -70,87 +72,67 @@ if(postData.content.trim()===""){
     errcontent=true
 }else{errcontent=false}
 
-
-
+console.log(errcontent,errimage,errtitle)
+console.log(show,mmm)
 
 const submitHandler=(e)=>{
 e.preventDefault()
-if(!errtitle&&!errimage&&!errcontent&&!mmm&&show){
-    const finnalypost={...postData, isbook:bokkk, date:new Date()}
-    dispatch(postElement(finnalypost)).then(()=>dispatch(AddItems.close())
-    .then(setpostData({ title:"",
-    content:"",
-    image:"",
-    isbook:null}))
-    
-    )
+
+if(show&&!mmm){
+    if(errimage){
+        toast.error("Add picture!!!")
+    }
+    if(!errimage){
+   const finnalypost={...postData, isbook:bokkk, date:new Date()}
+   dispatch(postElement(finnalypost)).then(()=>dispatch(Showchangeform.close()))
+.then(()=>dispatch(getElement()))}
+ 
     
 }
-else if(!errtitle&&!errimage&&!errcontent&&mmm&&!show){
-    const finnalypost={
-        ...chngeitem,
-        title:postData.title,
+else if(!show&&mmm){
+    if(errtitle)
+    { const finnalypost={...chngeitem,
         content:postData.content,
         image:postData.image,
         
      date:new Date()}
-    
-    dispatch(updateElement(finnalypost)).then(()=>dispatch(Showchangeform.close()))
-    .then(setpostData({ title:"",
-    content:"",
-    image:"",
-    isbook:null}))
-    
-    
+     dispatch(updateElement(finnalypost)).then(()=>dispatch(Showchangeform.close()))
+.then(()=>dispatch(getElement()))}
+else if (errimage){ const  finnalypost={
+    ...chngeitem,
+    title:postData.title,
+    content:postData.content,
+    image:newimage,
+ date:new Date()}
+ dispatch(updateElement(finnalypost)).then(()=>dispatch(Showchangeform.close()))
+ .then(()=>dispatch(getElement()))}
+ else if(errcontent){const finnalypost={
+    ...chngeitem,
+    title:postData.title,
+    image:postData.image,
+ date:new Date()}
+ dispatch(updateElement(finnalypost)).then(()=>dispatch(Showchangeform.close()))
+.then(()=>dispatch(getElement()))}
+else{ console.log("extra2")
+const finnalypost={
+     ...chngeitem,
+     title:postData.title,
+     content:postData.content,
+     image:postData.image,
+     
+  date:new Date()}
+  dispatch(updateElement(finnalypost)).then(()=>dispatch(Showchangeform.close()))
+.then(()=>dispatch(getElement()))
+
+ 
+ }
+   
 }
-else if(errtitle&&!errimage&&!errcontent&&mmm&&!show){
-    const finnalypost={...chngeitem,
-        content:postData.content,
-        image:postData.image,
-        
-     date:new Date()}
-    
-    dispatch(updateElement(finnalypost)).then(()=>dispatch(Showchangeform.close()))
-    .then(setpostData({ title:"",
-    content:"",
-    image:"",
-    isbook:null}))
-}
-else if(!errtitle&&errimage&&!errcontent&&mmm&&!show){
-    const finnalypost={
-        ...chngeitem,
-        title:postData.title,
-        content:postData.content,
-        
-     date:new Date()}
-    
-    dispatch(updateElement(finnalypost)).then(()=>dispatch(Showchangeform.close()))
-    .then(setpostData({ title:"",
-    content:"",
-    image:"",
-    isbook:null}))
-}
-else if(!errtitle&&!errimage&&errcontent&&mmm&&!show){
-    const finnalypost={
-        ...chngeitem,
-        title:postData.title,
-        image:postData.image,
-     date:new Date()}
-    dispatch(updateElement(finnalypost)).then(()=>dispatch(Showchangeform.close()))
-    .then(setpostData({ title:"",
-    content:"",
-    image:"",
-    isbook:null}))
-}
-else if(errimage&&!mmm){
-    toast.error("Add picture!!!")
-}
-else if(errtitle&&!mmm){
-    toast.error("Add title!!!")
-}
-else if(errcontent&&!mmm){
-    toast.error("Add content!!!")
-}
+
+
+
+
+
 
 }
     return (

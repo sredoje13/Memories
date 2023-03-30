@@ -86,9 +86,11 @@ console.log(deleteitemone)
  const chageitem=(item)=>{
   dispatch(Showchangeform.show(item))
   dispatch(AddItems.close())
+ 
     }
 const deleteitem=(event)=>{
   dispatch(Deleteone.delete(event))
+  
   setAnchorEl(true);
 }
 
@@ -199,7 +201,8 @@ anchorOrigin={{
 >
 <Typography sx={{ p: 2 }}>Do you realy want to delete {deleteitemone.title}?
   <Button onClick={()=>{dispatch(deleteElement(deleteitemone));
-  setAnchorEl(false)
+  setAnchorEl(false);
+  dispatch(getElement())
   }}>OK</Button>
   </Typography>
 </Popover>
