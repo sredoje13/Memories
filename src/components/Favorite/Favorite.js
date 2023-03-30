@@ -36,7 +36,7 @@ oneitem=(<Nohaveitems text="NO HAVE FAVORITE ITEMS!!!"/>)
         }
         else
    oneitem=filteritem.map((item)=>(
-<Card sx={{ maxWidth:{ md:345, xs:"280px" }, margin:{md:10,xs:1}}} >
+<Card sx={{ width:{ md:345, xs:280 }, margin:{md:10,xs:5}}} >
 <div style={{position:"absolute", zIndex:100 ,marginTop:"2px",
    marginLeft:"-10px",
 }}>
@@ -61,6 +61,7 @@ oneitem=(<Nohaveitems text="NO HAVE FAVORITE ITEMS!!!"/>)
 <CardMedia  
     component="img"
     height="200px"
+    width="280px"
     alt="movie or book"
     image={item.image}/>
     </CardContent>
@@ -77,7 +78,9 @@ oneitem=(<Nohaveitems text="NO HAVE FAVORITE ITEMS!!!"/>)
     ))}
     return(
 
-        <Container sx={{marginTop:10, display:"flex", justifyContent:"center"}}>
+        <Container sx={{marginTop:10, display:"flex", justifyContent:"center",
+        flexDirection:{md:"row", sm:"column", xs:"column"}, alignItems:"center"
+        }}>
        {oneitem}
        <Footer/>
         </Container>
