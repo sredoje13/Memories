@@ -8,7 +8,6 @@ import ResponsiveAppBar from './components/Navbar/Navbar';
 import Books from './components/Books/Books';
 import Movies from './components/Movies/Movies';
 import Favorite from './components/Favorite/Favorite';
-import Footer from './components/Footer/Footer';
 function App() {
   const classes=useStyle()
   return (
@@ -21,7 +20,7 @@ function App() {
   <Route path="/" exact>
   <Firstpage/>
   </Route>
-<Route path="/books"exact >
+<Route path="/books" exact>
 <Books/>
 </Route>
 <Route path="/movies" exact> 
